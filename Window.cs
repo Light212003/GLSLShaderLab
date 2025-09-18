@@ -54,7 +54,6 @@ namespace GLSLShaderLab
             })
         {
             _selectedShader = selectedShader;
-<<<<<<< Updated upstream
             _selectedModel = selectedModel;
 
             var shaderSelector = new ShaderSelector();
@@ -62,12 +61,6 @@ namespace GLSLShaderLab
             _availableShaders = shaderSelector.GetAvailableShaders();
             _availableModels = modelSelector.GetAvailableModels();
 
-=======
-
-            // Carregar lista de shaders dispon�veis
-            var selector = new ShaderSelector();
-            _availableShaders = selector.GetAvailableShaders();
->>>>>>> Stashed changes
             _currentShaderIndex = _availableShaders.FindIndex(s => s.Name == selectedShader.Name);
             if (_currentShaderIndex == -1) _currentShaderIndex = 0;
 
@@ -118,7 +111,6 @@ namespace GLSLShaderLab
             catch (Exception ex) { Console.WriteLine($"Erro ao carregar copy shader: {ex.Message}"); }
 
             LoadShader(_selectedShader);
-<<<<<<< Updated upstream
             LoadModel(_selectedModel);
 
             Console.WriteLine("Controles:");
@@ -141,16 +133,6 @@ namespace GLSLShaderLab
             shader.SetVector2("iMouse", new Vector2(MouseState.X, Size.Y - MouseState.Y));
             shader.SetInt("iMouseClick", MouseState.IsButtonDown(MouseButton.Left) ? 1 : 0);
             shader.SetVector3("viewPos", _cameraPos);
-=======
-
-            Console.WriteLine("Controls:");
-            Console.WriteLine("  Arrows: Switch between shaders");
-            Console.WriteLine("  B     : Toggle buffer system (iChannels)");
-            Console.WriteLine("  H     : Show/hide help");
-            Console.WriteLine("  ESC   : Exit");
-            Console.WriteLine();
-            Console.WriteLine("Buffer system: " + (_useBuffers ? "ENABLED" : "DISABLED"));
->>>>>>> Stashed changes
         }
 
         private void LoadShader(ShaderSelector.ShaderInfo shaderInfo)
@@ -161,19 +143,11 @@ namespace GLSLShaderLab
                 _shader = new Shader(shaderInfo.VertexPath, shaderInfo.FragmentPath);
                 _shader.Use();
 
-<<<<<<< Updated upstream
-=======
-                // Auto-activate buffers for shaders that need them
->>>>>>> Stashed changes
                 if (shaderInfo.Name.Contains("PaintTutorial") ||
                     shaderInfo.Name.Contains("BufferDemo") ||
                     shaderInfo.Name.Contains("BufferTest") ||
                     shaderInfo.Name.Contains("SimplePaint") ||
-                    shaderInfo.Name.Contains("RippleTask1") ||
-                    shaderInfo.Name.Contains("RippleTask2") ||
-                    shaderInfo.Name.Contains("RippleTask3") ||
-                    shaderInfo.Name.Contains("RippleTask4") ||
-                    shaderInfo.Name.Contains("RippleTask5"))
+                    shaderInfo.Name.Contains("Functions"))
                 {
                     if (!_useBuffers)
                     {
@@ -182,12 +156,7 @@ namespace GLSLShaderLab
                     }
                 }
 
-<<<<<<< Updated upstream
                 Title = $"GLSL Shader Lab - {shaderInfo.Name} - Mode: {_renderMode}";
-=======
-                Title = $"GLSL Shader Lab - {shaderInfo.Name}" + (_useBuffers ? " [Buffers ON]" : " [Buffers OFF]");
-                Console.WriteLine($"Shader loaded: {shaderInfo.Name}");
->>>>>>> Stashed changes
             }
             catch (Exception ex) { Console.WriteLine($"Erro ao carregar shader {shaderInfo.Name}: {ex.Message}"); }
         }
@@ -220,7 +189,6 @@ namespace GLSLShaderLab
                 case Keys.Escape:
                     Close();
                     break;
-<<<<<<< Updated upstream
                 case Keys.M:
                     _renderMode = _renderMode == RenderMode.Fullscreen2D ? RenderMode.Model3D : RenderMode.Fullscreen2D;
                     Console.WriteLine("Render mode: " + _renderMode);
@@ -259,34 +227,11 @@ namespace GLSLShaderLab
                     _fov = 45.0f;
                     _rotationY = 0.0f;
                     break;
-=======
-
-                case Keys.Left:
-                    if (_availableShaders.Count > 1)
-                    {
-                        _currentShaderIndex = (_currentShaderIndex - 1 + _availableShaders.Count) % _availableShaders.Count;
-                        LoadShader(_availableShaders[_currentShaderIndex]);
-                    }
-                    break;
-
-                case Keys.Right:
-                    if (_availableShaders.Count > 1)
-                    {
-                        _currentShaderIndex = (_currentShaderIndex + 1) % _availableShaders.Count;
-                        LoadShader(_availableShaders[_currentShaderIndex]);
-                    }
-                    break;
-
->>>>>>> Stashed changes
                 case Keys.B:
                     // Alternar uso de buffers
                     _useBuffers = !_useBuffers;
                     Console.WriteLine("Buffer system: " + (_useBuffers ? "ON" : "OFF"));
                     break;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 case Keys.H:
                     // Alternar exibição de ajuda
                     _showHelp = !_showHelp;
@@ -348,15 +293,6 @@ namespace GLSLShaderLab
         private void RenderWithBuffers2D()
         {
             _bufferManager.BindCurrentBufferForWriting();
-<<<<<<< Updated upstream
-=======
-
-            _shader?.Use();
-            _shader?.SetFloat("iTime", _time);
-            _shader?.SetVector2("iResolution", new Vector2(Size.X, Size.Y));
-            _shader?.SetVector2("iMouse", new Vector2(MouseState.X, Size.Y - MouseState.Y));
-            _shader?.SetInt("iMouseClick", MouseState.IsButtonDown(MouseButton.Left) ? 1 : 0);
->>>>>>> Stashed changes
 
             _shader?.Use();
             SetCommonUniforms(_shader);
@@ -376,10 +312,6 @@ namespace GLSLShaderLab
             {
                 _copyShader.Use();
                 _copyShader.SetVector2("iResolution", new Vector2(Size.X, Size.Y));
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 var currentBuffer = _bufferManager.GetCurrentBuffer();
                 currentBuffer.BindForReading(TextureUnit.Texture0);
                 _copyShader.SetTexture("inputTexture", 0);
@@ -388,7 +320,6 @@ namespace GLSLShaderLab
                 GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             }
 
-<<<<<<< Updated upstream
             _bufferManager.SwapBuffers();
         }
 
@@ -425,9 +356,6 @@ namespace GLSLShaderLab
                 GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
             }
 
-=======
-            // Swap for next frame
->>>>>>> Stashed changes
             _bufferManager.SwapBuffers();
         }
 
