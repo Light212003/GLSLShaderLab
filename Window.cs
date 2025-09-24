@@ -147,7 +147,12 @@ namespace GLSLShaderLab
                     shaderInfo.Name.Contains("BufferDemo") ||
                     shaderInfo.Name.Contains("BufferTest") ||
                     shaderInfo.Name.Contains("SimplePaint") ||
-                    shaderInfo.Name.Contains("Functions"))
+                    shaderInfo.Name.Contains("Functions") ||
+                    shaderInfo.Name.Contains("RippleTask1") ||
+                    shaderInfo.Name.Contains("RippleTask2") ||
+                    shaderInfo.Name.Contains("RippleTask3") ||
+                    shaderInfo.Name.Contains("RippleTask4") ||
+                    shaderInfo.Name.Contains("RippleTask5"))
                 {
                     if (!_useBuffers)
                     {
